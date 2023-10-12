@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+
+<body>
+	<h1>Задача №4</h1>
+
+	<p>
+		Додаток містить масив об’єктів (логін, пароль) -- інсуючі логіни і паролі. Користувач вводить логін і пароль, а
+		програма
+		повідомляє чи може користувач бути авторизованим (чи є він одним з масиву).
+	</p>
+	<br>
+
+	<div id="app">
+		<div>
+			<label>
+				Введіть свій Логін
+				<input type="text" v-model="login">
+			</label>
+		</div>
+		<div>
+			<label>
+				Введіть свій Пароль
+				<input type="text" v-model="password">
+			</label>
+		</div>
+		<button @click="checkData">Авторизуйтесь</button>
+		<div>
+			<span>{{userCorrectData}}</span>
+		</div>
+
+	</div>
+
+
+
+	<script>
+
+		const userData = [
+			{
+				userLogin: 'userLogin1',
+				userPassword: 'userPassword1',
+			},
+			{
+				userLogin: 'userLogin2',
+				userPassword: 'userPassword2',
+			},
+			{
+				userLogin: 'userLogin3',
+				userPassword: 'userPassword3',
+			},
+		]
+
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					login: null,
+					password: null,
+					userCorrectData: null,
+				}
+			},
+
+			methods: {
+				checkData() {
+					for (const user of userData) {
+						if (user.userLogin === this.login && user.userPassword === this.password) {
+							this.userCorrectData = 'Ви авторизовались коректно'
+							break
+						} else this.userCorrectData = 'Ви ввели неправильний Логін або Пароль'
+					}
+				}
+			}
+		}).mount('#app')
+
+	</script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

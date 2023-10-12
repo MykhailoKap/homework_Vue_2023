@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+	<h1>Задача №1</h1>
+
+	<p>
+		Вводиться кількість пасажирів. Вивести:
+		- скільки потрібно автобусів (кожен автобус на 20 місць)
+		- скільки пляшок води (кожному пасажиру 2 пляшки)
+		- скільки бутербродів (кожному пасажиру 3 бутерброди)
+	</p>
+	<br>
+
+	<div id="app">
+		<div>
+			<label>
+				Введіть кількість пасажирів
+				<input type="number" v-model="passengerCount">
+			</label>
+		</div>
+		<div>
+			<label>
+				Для такої кількості пасажирів буде потрібно стільки автобусів:
+				<span>{{busCount()}}</span>
+			</label>
+		</div>
+		<div>
+			<label>
+				Для такої кількості пасажирів знадобиться бутилок води:
+				<span>{{waterBottleCount()}}</span>
+			</label>
+		</div>
+		<div>
+			<label>
+				Для такої кількості пасажирів знадобиться бутербродів:
+				<span>{{sandwichCount()}}</span>
+			</label>
+		</div>
+	</div>
+
+
+
+	<script>
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					passengerCount: null,
+					busCapacity: 20,
+					waterBottlePerPerson: 2,
+					sandwichPerPerson: 3,
+				}
+			},
+
+			methods: {
+				busCount() {
+					return Math.ceil(this.passengerCount / this.busCapacity)
+				},
+
+				waterBottleCount() {
+					return this.passengerCount * this.waterBottlePerPerson
+				},
+
+				sandwichCount() {
+					return this.passengerCount * this.sandwichPerPerson
+				}
+			}
+		}).mount('#app')
+	</script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

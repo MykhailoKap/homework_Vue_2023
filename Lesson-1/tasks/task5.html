@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+
+<body>
+	<h1>Задача №5</h1>
+
+	<p>
+		“Рахунок у банку”
+		Вимоги: <br>
+		1) Спочатку сума дорівнює 0грн. Змінити суму у гривнях можна або зарахуванням на рахунок, або зняттям. <br>
+		2) Сума автоматично переводиться у долари та євро (фіксований курс задається у data). <br>
+		3) можливість зарахувати суму (контролювати, щоб не була від’ємною) <br>
+		4) можливість зняти (щоб не можна зняти більше ніж є на рахунку) <br>
+		5) при виконанні зняття і зарахування коштів вираховувати 3% від суми (відображати кількість відсотків
+		автоматично) <br>
+	</p>
+	<br>
+
+	<div id="app">
+		<div>
+			Сума на рахунку: <span>{{balanceAccount()}}</span> грн.
+		</div>
+		<div>
+			<label>
+				Зарахувати на рахунок:
+				<input type="number" v-model="addSomeMoney">
+				<button @click="addMoney">Зарахувати</button>
+			</label>
+		</div>
+		<div>
+			<label>
+				Зняти з рахунку:
+				<input type="number" v-model="getSomeMoney">
+				<button @click="getMoney">Зняти</button>
+			</label>
+		</div>
+		<div>
+			Відсотки за обслуговування: <span>{{transactionFee}}</span> грн.
+		</div>
+		<hr>
+		<div>
+			Сума в доларах: <span>{{convertToDollar()}}</span> дол.
+		</div>
+		<div>
+			Сума в євро: <span>{{convertToEuro()}}</span> євро.
+		</div>
+
+	</div>
+
+
+
+	<script>
+
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					balance: null,
+					addSomeMoney: null,
+					getSomeMoney: null,
+					transactionFee: 0,
+					dollarRate: 38,
+					euroRate: 45,
+				}
+			},
+
+			methods: {
+				balanceAccount() {
+					if (this.balance)
+						return this.balance
+					return 0
+				},
+
+				addMoney() {
+					if (this.addSomeMoney > 0) {
+						this.balance += this.addSomeMoney * 0.97
+						this.transactionFee += this.addSomeMoney * 0.03
+						this.addSomeMoney = null
+					}
+					else throw new Error('квота повинна бути більшою за 0')
+				},
+
+				getMoney() {
+					if (this.getSomeMoney > this.balance)
+						throw new Error('квота не повинна бути більшою за Ваш баланс')
+					else {
+						this.balance -= this.getSomeMoney * 0.97
+						this.transactionFee += this.getSomeMoney * 0.03
+						this.getSomeMoney = null
+					}
+				},
+
+				convertToDollar() {
+					return (this.balance / this.dollarRate).toFixed(2)
+				},
+
+				convertToEuro() {
+					return (this.balance / this.euroRate).toFixed(2)
+				}
+			}
+		}).mount('#app')
+
+	</script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

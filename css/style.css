@@ -1,0 +1,113 @@
+/* ------------------------------------------------ */
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+}
+li {
+	list-style: none;
+}
+a,
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: inherit;
+	font-size: inherit;
+}
+img {
+	vertical-align: top;
+}
+html,
+body {
+	height: 100%;
+}
+html {
+	font-size: 16px;
+}
+
+/* ------------------------------------------------ */
+
+body {
+	font-family: "Arial", sans-serif;
+	line-height: 1;
+	background-color: #cfcfcf;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.lock {
+	overflow: hidden;
+}
+
+.wrapper {
+	min-height: 100%;
+	overflow: clip;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.page {
+	flex: 1 1 auto;
+}
+
+/* -----CONTAINER-------------------------- */
+
+[class*="__container"] {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 15px;
+}
+
+/* ------------------------------------------------ */
+
+.page {
+}
+.page__container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	min-height: 100vh;
+}
+.page__body {
+	max-width: 800px;
+	padding: 50px;
+	background-color: rgb(34, 34, 34);
+	border-radius: 10px;
+}
+.page__title {
+	color: #fff;
+	font-size: 35px;
+	margin-bottom: 50px;
+	letter-spacing: 3px;
+}
+.page__menu {
+}
+.menu {
+}
+.menu__list {
+}
+.menu__item {
+}
+.menu__link {
+	color: #fff;
+	font-size: 20px;
+	line-height: 150%;
+	transition: color 0.3s ease 0s;
+}
+.menu__link:hover {
+	color: #d20a11;
+}

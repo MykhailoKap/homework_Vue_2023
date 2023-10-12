@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+
+<body>
+	<h1>Задача №2</h1>
+
+	<p>
+		Вводиться номер місяця. Автоматично виводити рекомендований одяг (зима – пальто, літо – шорти ….). Також
+		автоматично
+		виводити зображення з відповідним зображенням лісу (зима – ліс зі снігом, осінь – жовтий ліс, …).
+	</p>
+	<br>
+
+	<div id="app2">
+		<div>
+			<label>
+				Введіть номер місяця
+				<input type="number" v-model="monthNum">
+			</label>
+		</div>
+		<div>
+			<label>
+				Для такої кількості пасажирів знадобиться бутилок води:
+				{{seasonOfYear()}}
+				<span>{{season}}</span>
+			</label>
+		</div>
+		<div>
+			<img :src="image" alt="" width="300">
+
+		</div>
+	</div>
+
+
+
+	<script>
+		const { createApp } = Vue
+
+		const app2 = createApp({
+			data() {
+				return {
+					monthNum: null,
+					image: '',
+					season: '',
+
+				}
+			},
+
+			methods: {
+				seasonOfYear() {
+
+					if (this.monthNum) {
+						switch (this.monthNum) {
+							case 12:
+							case 1:
+							case 2:
+								this.season = 'Зима - тому краще вдягніть теплу куртку та шапку'
+								this.image = 'img/01.jpg'
+								break
+
+							case 3:
+							case 4:
+							case 5:
+								this.season = 'Весна - вдягніть блузу та джинси'
+								this.image = 'img/02.jpg'
+								break
+							case 6:
+							case 7:
+							case 8:
+								this.season = 'Літо - вдягніть шорти та футболку'
+								this.image = 'img/03.jpg'
+								break
+							case 9:
+							case 10:
+							case 11:
+								this.season = 'Осінь - вдягніть светр та візьміть парасольку'
+								this.image = 'img/04.jpg'
+								break
+							default: this.season = 'Немає такого місяця'
+								break
+						}
+					}
+
+				},
+			}
+
+
+		}).mount('#app2')
+
+
+
+
+
+	</script>
+
+
+
+</body>
+
+</html>
