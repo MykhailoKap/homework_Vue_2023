@@ -130,8 +130,7 @@ body {
 
 .menu__link {
 	color: #000;
-	transition: all 0.3s ease 0s;
-	
+	transition: all 0.3s ease 0s;	
 }
 
 .menu__text {
