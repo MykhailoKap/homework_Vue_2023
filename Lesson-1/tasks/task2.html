@@ -30,7 +30,7 @@
 		<div>
 			<label>
 				На дворі зараз:
-				{{seasonOfYear()}}
+				{{seasonOfYear}}
 				<span>{{season}}</span>
 			</label>
 		</div>
@@ -55,7 +55,7 @@
 				}
 			},
 
-			methods: {
+			computed: {
 				seasonOfYear() {
 
 					if (this.monthNum) {
