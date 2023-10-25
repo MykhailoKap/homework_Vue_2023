@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+
+	<style>
+		.container {
+			background-color: rgb(46, 44, 53);
+			min-height: 100vh;
+			font-family: Arial;
+			letter-spacing: 1px;
+		}
+
+		.site {
+			max-width: 600px;
+			color: #a8a9ad;
+			padding: 20px;
+		}
+
+		.site:not(:last-child) {
+			margin-bottom: 30px;
+		}
+
+		.link-site {
+			color: #fff;
+			text-decoration: none;
+			margin-bottom: 5px;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.text-link {
+			color: #92b4f2;
+			font-size: 18px;
+		}
+
+		.link-site:hover .text-link {
+			text-decoration: underline;
+		}
+
+		.head-site {
+			display: flex;
+			gap: 10px;
+			margin-bottom: 10px;
+			font-size: 12px;
+		}
+
+		.head-img {
+			flex: 0 1 40px;
+			height: 40px;
+			overflow: hidden;
+			border-radius: 50%
+		}
+
+		.head-img img {
+			max-width: 100%;
+			object-fit: cover;
+		}
+
+		.head-body>*:not(:last-child) {
+			margin-bottom: 5px;
+		}
+
+		.text-site p {
+			margin: 0;
+			font-size: 14px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Задача №5</h1>
+
+	<p>
+		Самостійно сформуйте масив даних та виведіть фрагмент на зразок поданого (дані не обов’язково повинні співпадати)
+	</p>
+	<br>
+
+	<div id="app">
+		<div class="container">
+			<div class="site" v-for="item in siteList" :key="item.id">
+				<a class="link-site" :href="item.linkAdress">
+					<div class="head-site">
+						<div class="head-img">
+							<img :src="item.imageSrc">
+						</div>
+						<div class="head-body">
+							<div class="head-title">{{item.title}}</div>
+							<div class="head-adress">{{item.linkAdress}}</div>
+						</div>
+					</div>
+					<span class="text-link">{{item.shortDescription}}</span>
+				</a>
+				<div class="text-site">
+					<p>
+						{{item.longDescription}}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script>
+
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					siteList: [
+						{
+							id: 01,
+							linkAdress: 'https://vuejs.org/',
+							title: 'Vue.js',
+							shortDescription: 'Vue.js - The Progressive JavaScript Framework | Vue.js',
+							longDescription: 'Vue.js - The Progressive JavaScript Framework.',
+							imageSrc: 'img/vue.png',
+						},
+						{
+							id: 02,
+							linkAdress: 'https://developer.mozilla.org/en-US/',
+							title: 'Mozilla',
+							shortDescription: 'Getting started with Vue - Learn web development | MDN',
+							longDescription: 'Aug 2, 2023 — Vue is a modern JavaScript framework that provides useful facilities for progressive enhancement — unlike many other frameworks, you can use Vue...',
+							imageSrc: 'img/mozilla.png',
+						},
+						{
+							id: 03,
+							linkAdress: 'https://github.com/',
+							title: 'GitHub',
+							shortDescription: 'GitHub: Lets build from here · GitHub',
+							longDescription: 'GitHub is where over 100 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, ...',
+							imageSrc: 'img/GitHub.png',
+						},
+						{
+							id: 04,
+							linkAdress: 'https://code.visualstudio.com/',
+							title: 'Visual Studio Code',
+							shortDescription: 'Visual Studio Code - Code Editing. Redefined',
+							longDescription: 'Visual Studio Code is a code editor redefined and optimized for building and debugging modern web and cloud applications. Visual Studio Code is free and ...',
+							imageSrc: 'img/vsCode.png',
+						},
+					]
+				}
+			}
+
+		}).mount('#app')
+
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

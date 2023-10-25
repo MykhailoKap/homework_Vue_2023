@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+	<style>
+		.error-block {
+			padding: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			max-width: 300px;
+			height: 100px;
+			font-size: 12px;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			color: #fff;
+			text-align: center;
+			margin-top: 20px;
+			background-color: rgb(165, 69, 69);
+		}
+
+		.error-blue {
+			background-color: rgb(47, 47, 136);
+		}
+	</style>
+</head>
+
+
+
+
+
+<body>
+	<h1>Задача №1</h1>
+	<p>
+		Вводимо логіна і пароль. Якщо логін вірний відображаємо смайл. Якщо ні, то: <br>
+		1) якщо логін = Іван – колір повідомлення про помилку синій <br>
+		2) якщо хтось інший, то колір повідомлення червоний
+	</p>
+	<br>
+
+
+
+	<div id="app">
+		<div>
+			<label>
+				Введіть Логін
+				<input type="text" v-model.lazy="login">
+			</label>
+		</div>
+		<div>
+			<label>
+				Введіть Пароль
+				<input type="password" v-model.lazy="password">
+			</label>
+		</div>
+		<button @click="checkUserData">Go</button>
+		<div v-if="!message && isFieldActive">
+			<img src="img/smile.jpg" alt="" style="width: 200px; display: block; margin-top:20px">
+		</div>
+		<div v-else-if="message && isFieldActive" class="error-block" :class="{'error-blue': blueColorError}">
+			{{message}}
+		</div>
+	</div>
+
+
+	<script>
+		const userData = {
+			userLogin: 'user',
+			userPassword: 111,
+		}
+
+		const ivanName = 'Ivan'
+
+
+
+		const { createApp } = Vue
+
+		const app = createApp({
+			data() {
+				return {
+					login: null,
+					password: null,
+					message: null,
+				}
+			},
+
+			computed: {
+				isFieldActive() {
+					return this.login && this.password
+				},
+
+				checkUserData() {
+
+					if (this.login && this.password) {
+						if (this.correctLogin() && this.correctPassword())
+							this.message = ''
+						else if ((this.login).toLowerCase() === ivanName.toLowerCase()) {
+							this.message = 'Ви ввели неправильний Логін, а саме - Іван'
+						} else {
+							this.message = 'Ви ввели неправильний або Логін, або Пароль'
+						}
+					}
+				},
+
+				blueColorError() {
+					return (this.login).toLowerCase() === ivanName.toLowerCase()
+				}
+
+			},
+
+			methods: {
+				correctLogin() {
+					return (this.login).toLowerCase() === (userData.userLogin).toLowerCase()
+				},
+
+				correctPassword() {
+					return parseInt(this.password) === userData.userPassword
+				}
+			}
+
+
+
+		}).mount('#app')
+	</script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+	<style>
+		.container {
+			max-width: 300px;
+		}
+
+		.title {
+			font-size: 18px;
+			letter-spacing: 1px;
+			color: rgb(160, 95, 95);
+		}
+
+		.select {
+			margin-bottom: 10px;
+		}
+
+		.ticket {
+			display: flex;
+			align-items: center;
+			text-align: center;
+			justify-content: space-between;
+			letter-spacing: 1px;
+
+		}
+
+		.business {
+			background: url('img/business_class.jpeg') center / cover no-repeat;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			position: relative;
+			padding: 30px;
+			border-radius: 10px;
+		}
+
+		.econom {
+			background: url('img/clouds.jpg') center / cover no-repeat;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			position: relative;
+			padding: 30px;
+			border-radius: 10px;
+		}
+
+		.product-item {
+			padding: 10px;
+			border-radius: 10px;
+			background: #fff;
+			color: #000;
+			position: relative;
+		}
+
+		.product-item::before {
+			content: '';
+			display: block;
+			width: 20px;
+			height: 20px;
+			border-radius: 5px;
+			background: #fff;
+			position: absolute;
+			top: 50%;
+			right: -30px;
+			transform: translate(0, -50%);
+		}
+
+		.checked-product::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			right: -27px;
+			transform: translate(0, -50%);
+			background: #000;
+			z-index: 5;
+			display: block;
+			width: 14px;
+			height: 14px;
+			border-radius: 5px;
+		}
+
+		.snacks {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 110%;
+			width: 300px;
+			padding: 20px;
+			background: rgb(198, 157, 83);
+			border-radius: 10px;
+		}
+
+		.snacks>* :not(:last-child) {
+			margin-bottom: 20px;
+		}
+	</style>
+
+</head>
+
+<body>
+	<h1>Задача №2</h1>
+
+	<p>
+		З випадаючого списку вибираємо клас квитка у літаку. Якщо <br>
+		1) бізнес - виводимо елементи для вибору газети та коньяку (якщо вибрано коньяк, то запропонувати закуску
+		(так/ні)), на
+		фоні зображення бізнес кают <br>
+		2) економ – виводимо елементи для вибору типу пива і чипсів, на фоні хмарки.
+	</p>
+	<br>
+
+	<div id="app">
+		<div class="container">
+			<h1 class="title">
+				Клас білету можна вибрати тут:
+			</h1>
+
+			<select class="select" v-model="selectedOption" @change="selectOption">
+				<option disabled value="">Будь ласка, виберіть клас білету</option>
+				<option value="2">Бізнес клас</option>
+				<option value="3">Економ клас</option>
+			</select>
+
+			<div :class="backgroundImageClass">
+				<div class="ticket" v-if="selectedClass === 2" v-for="(item, index) in tickets" :key="index">
+					<div class="product-item" :class="{'checked-product': item[0].active}">{{item[0].product}}</div>
+					<button @click="selectProduct(index)">Вибрати</button>
+					<div class="snacks" v-if="item[0].active && item[0].product === 'коньяк' ">
+						<label>Хочете додати до коньяку ще закуски?</label>
+						<div>
+							<label for="yes">yes</label>
+							<input checked type="radio" name="radio" id="yes">
+							<label for="no">no</label>
+							<input type="radio" name="radio" id="no">
+						</div>
+						<button @click="confirmButton">Додати</button>
+					</div>
+				</div>
+				<div class="ticket" v-if="selectedClass === 3" v-for="(item, index) in tickets" :key="index">
+					<div class="product-item">{{item[1].product}}</div>
+					<button @click="selectProduct(index)">Вибрати</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script>
+		const { createApp } = Vue
+
+		const app2 = createApp({
+			data() {
+				return {
+					selectedOption: '',
+					selectedClass: null,
+					activeItem: null,
+
+					tickets: [
+						businessClass = [
+							{
+								product: 'коньяк',
+								active: false,
+							},
+							{
+								product: 'газети',
+								active: false,
+							}
+						],
+
+						economyClass = [
+							{
+								product: 'пиво',
+								active2: false,
+							},
+							{
+								product: 'чіпси',
+								active2: false,
+							}
+						],
+					],
+				}
+			},
+
+			computed: {
+				backgroundImageClass() {
+					let currentClass = null
+					if (this.selectedClass === 2)
+						currentClass = 'business'
+					else if (this.selectedClass === 3)
+						currentClass = 'econom'
+					return currentClass
+				}
+			},
+
+			methods: {
+				selectOption() {
+					if (this.selectedOption === '2') {
+						this.selectedClass = parseInt(this.selectedOption)
+					} else if (this.selectedOption === '3')
+						this.selectedClass = parseInt(this.selectedOption)
+				},
+
+				selectProduct(index) {
+					if (this.tickets[index])
+						this.tickets[index][0].active = !this.tickets[index][0].active
+				},
+			},
+		}).mount('#app')
+
+
+
+
+
+	</script>
+
+
+
+</body>
+
+</html>
